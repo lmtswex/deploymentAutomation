@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ValueUtils {
-    static String path = "C:/autoIVR_repo/pd.v1.callFlows/CallFlows/src/main/java/com.precash.autoivr.callmanager.callflows";
+    static String path = "C:/autoIVR_repo/pd-v1-callflows/CallFlows/src/main/java/com.precash.autoivr.callmanager.callflows";
     static String branch = "";
     static String callFlowName = "";
     static String commitComment = "";
