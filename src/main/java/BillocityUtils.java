@@ -8,13 +8,6 @@ public class BillocityUtils {
     }
 
     public void login() throws InterruptedException {
-        waitForElement("id","userNameInput");
-        DriverUtils.driver.findElement(By.id("userNameInput")).sendKeys("*username*");
-        Thread.sleep(1000);
-        DriverUtils.driver.findElement(By.id("pwInput")).sendKeys("*password*");
-        Thread.sleep(1000);
-        DriverUtils.driver.findElement(By.xpath("//*[@id=\"loginButton\"]/table/tbody/tr/td[2]/div")).click();
-        Thread.sleep(1000);
         waitForElement("xpath","//*[@id=\"submitExtButton\"]/table/tbody/tr/td[2]/div");
         DriverUtils.driver.findElement(By.xpath("//*[@id=\"submitExtButton\"]/table/tbody/tr/td[2]/div")).click();
         Thread.sleep(1000);
