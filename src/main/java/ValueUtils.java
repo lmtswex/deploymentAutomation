@@ -4,20 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ValueUtils {
-    static String path = "C:/autoIVR_repo/pd-v1-callflows/CallFlows/src/main/java/com.precash.autoivr.callmanager.callflows";
-    static String branch = "";
     static String callFlowName = "";
-    static String commitComment = "";
-    static String filePath = "";
-    static String change = "";
+    static String gitLink = "";
     static private JTextField[] textFields;
-    static GitUtils git = new GitUtils();
 
     public void fillAndValidateValues() {
         SwingUtilities.invokeLater(() -> {
             createAndShowGUI();
         });
-        if (branch == null || callFlowName == null || commitComment == null || filePath == null || change == null) {
+        if (callFlowName == null || gitLink == null) {
             JOptionPane.showMessageDialog(null, "You need to fill all the fields.");
             fillAndValidateValues();
         }
@@ -42,11 +37,8 @@ public class ValueUtils {
         constraints.insets = new Insets(5, 5, 5, 5);
 
         String[] labels = {
-                "Branch:",
                 "CallFlow name on DC:",
-                "Commit text:",
-                "What to check:",
-                "File name (without .java):"
+                "Git link:"
         };
 
         textFields = new JTextField[labels.length]; // Inicializar o array de campos de texto
@@ -81,23 +73,12 @@ public class ValueUtils {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                branch = textFields[0].getText();
-                callFlowName = textFields[1].getText();
-                commitComment = textFields[2].getText();
-                change = textFields[3].getText();
-                filePath = path + "/" + textFields[4].getText() + ".java";
-
-                if (git.checkout(path, branch)) {
-                    JOptionPane.showMessageDialog(null, "Checkout Successful.");
-                    try {
-                        if(DeploymentAutomation.deploy()){
-                            JOptionPane.showMessageDialog(null, "Deploy done!");
-                        }else{
-                            JOptionPane.showMessageDialog(null, "Deploy failed.");
-                        }
-                    } catch (InterruptedException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                DeploymentAutomation.CFName = textFields[0].getText();
+                DeploymentAutomation.gitLink = textFields[1].getText();
+                try {
+                    DeploymentAutomation.getGitValuesAndCheckout(DeploymentAutomation.CFName,DeploymentAutomation.gitLink);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         });
